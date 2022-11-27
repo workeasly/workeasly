@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)"></a>{{request.user.programming_language.language_name|title}} Team</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">CONTACT TEAM</h4>
+<!--                  <div class="float-right"><a href="/admin-dashboard/user-create" class="btn btn-primary btn-sm">Add New User</a>-->
+<!--                  </div>-->
+             </div>
+         <div class="card-body">
+
+
+            <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 1050px">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Username</th>
+                                <th>Contact Number</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        <tbody>
+                                {% for detail in team_member %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{detail.username|title}}</td>
+                                <td>{{detail.phone_number}}</td>
+                                <td>{{detail.email}}</td>
+                                <td><a href="tel:+91{{detail.phone_number}}"  class="btn btn-sm btn-primary">CALL</a>
+                                    <a href="mailto:{{detail.email}}"  class="btn btn-sm btn-success">SEND MAIL</a></td>
+
+                            </tr>
+                                {% endfor %}
+                  </tbody>
+              </thead>
+             </table>
+            </div>
+         </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}

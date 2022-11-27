@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">All User Projects</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">USER PROJECT</h4>
+                  <div class="float-right"><a href="/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
+                  </div>
+             </div>
+             <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 1050px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>User</th>
+                                <th>Title</th>
+<!--                                <th>Details</th>-->
+                                <th>Started On</th>
+                                <th>Completed On</th>
+                                <th>Action</th>
+                            </tr>
+                         <tbody>
+                        {% for project in  userproject %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{project.user.username|title}}</td>
+                                <td>{{project.title|title}}</td>
+<!--                                <td>{{project.details}}</td>-->
+                                <td>{{project.started_on}}</td>
+                                <td>{{project.completed_on}}</td>
+<!--                                <td><a href="/admin-dashboard/edit-user/{{person.id}}"  class="btn btn-sm btn-info">Edit</a></td>-->
+<!--                                <td><a href="/admin-dashboard/delete-user/{{person.id}}"  class="btn btn-sm btn-info">Delete</a></td>-->
+                                <td><a href="/admin-dashboard/view-single-user-project/{{project.id}}" class="btn btn-sm btn-info">VIEW</a></td>
+                            </tr>
+                         {% endfor %}
+                        </tbody>
+                        </thead>
+                    </table>
+                </div>
+             </div>
+       </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}

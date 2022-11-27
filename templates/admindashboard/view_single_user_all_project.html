@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load CustomTaskappTags %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin-dashboard/view-all-users/">User</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Projects</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                  {%for detail in userdetail%}
+                <h4 class="card-title"><b>USER:{{detail.username|title}}</b></h4>
+                 <div class="float-right"><a href="tel:+91{{detail.phone_number}}" class="btn btn-sm btn-primary">CALL</a>
+                     <a href="mailto:{{detail.email}}"  class="btn btn-sm btn-success">SEND MAIL</a>
+                </div>
+                {%endfor%}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>{% for project in all_projects %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{project.title|title}}</td>
+                                <td>
+
+                                  {% if project.is_active %}
+                                <span class="badge light badge-warning">
+                                  <i class="fa fa-circle text-warning mr-1"></i>
+                                  Active
+                                  </span>
+                                  {% endif %}
+
+
+                                {% if project.completed %}
+                                <span class="badge light badge-info">
+														<i class="fa fa-circle text-info mr-1"></i>
+														Completed
+													</span>
+                                {% endif %}</td>
+
+                                <td>{{project.started_on|date:"M d, Y"}}
+                                        {% if project.completed_on %}
+                                          - {{project.completed_on|date:"M d, Y"}}
+                                        {% else %}
+                                        - till date
+                                        {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+<!--                                        <a href="/projects/project-details/{{project.id}}" class="btn btn-sm btn-info">VIEW</a>-->
+                                        <a href="/admin-dashboard/view-single-user-project/{{project.id}}" class="btn btn-sm btn-primary">VIEW</a>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

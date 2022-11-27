@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/tasks/">all users</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">table layout</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-block">
+                <h4 class="card-title">USERS</h4>
+            </div>
+            <div class="card-body">
+                <div id="accordion-seven" class="accordion accordion-header-bg accordion-bordered">
+                    <div class="accordion__item">
+                        <div class="accordion__header accordion__header--primary" data-toggle="collapse" data-target="#header-bg_collapseOne">
+                            <span class="accordion__header--icon"></span>
+                            <span class="accordion__header--text">ADMINS</span>
+                            <span class="accordion__header--indicator"></span>
+                        </div>
+                        <div id="header-bg_collapseOne" class="collapse accordion__body show" data-parent="#accordion-seven">
+                            <div class="accordion__body--text">
+                                <div class="table-responsive">
+                                    <table id="admins_table" class="display table-responsive-md" style="min-width: 845px">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr. no</th>
+                                                <th>Task Type</th>
+                                                <th>Description</th>
+                                                <th>Added on</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>{% for user in all_users_admin_data %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{user}}</td>
+                                                <td>{{user}} <a href="#view_detail_{{task.id}}" data-toggle="modal" data-target="#view_detail_{{task.id}}" class="text-info"> view more</a></td>
+                                                <td>{{user}}</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <a href="/tasks/view-task/{{task.id}}" class="btn btn-sm btn-info">VIEW</a> &nbsp;
+                                                        {{user}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="view_detail_{{task.id}}">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Task Details</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">{{task.details}} </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion__item">
+                        <div class="accordion__header collapsed accordion__header--info" data-toggle="collapse" data-target="#header-bg_collapseTwo">
+                            <span class="accordion__header--icon"></span>
+                            <span class="accordion__header--text">EMPLOYEES</span>
+                            <span class="accordion__header--indicator"></span>
+                        </div>
+                        <div id="header-bg_collapseTwo" class="collapse accordion__body show" data-parent="#accordion-seven">
+                            <div class="accordion__body--text">
+                                <div class="table-responsive">
+                                    <table id="employee_table" class="display table-responsive-md" style="min-width: 845px">
+                                        <thead>
+                                            <tr>
+                                                <th>Student ID</th>
+                                                <th>Name</th>
+                                                <th>Department</th>
+                                                <th>Email</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>{% for user in all_employees_data %}
+                                            <tr>
+                                                <td>{{user.office_user_id}}</td>
+                                                <td>{{user.first_name|title}} {{user.last_name|title}}</td>
+                                                <td>{{user.programming_language.language_name}} </td>
+                                                <td>{{user.email}}</td>
+                                                <td>
+                                                    <div class="basic-dropdown">
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                Select
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item " href="#"><span class="ml-2">View </span></a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="#"><span class="ml-2">View All Tasks</span></a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="#"><span class="ml-2">View Graphs</span></a>
+
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="#"><span class="ml-2">Edit </span></a>
+                                                                <div class="dropdown-divider"></div>
+                                                                 <a class="dropdown-item" href="#"><span class="ml-2">Disable </span></a>
+                                                                <div class="dropdown-divider"></div>
+                                                                 <a class="dropdown-item" href="#"><span class="ml-2">Delete </span></a>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <a href="/tasks/view-task/{{task.id}}" class="btn btn-sm btn-info">VIEW</a> &nbsp;
+                                                        {{user}}
+                                                    </div> -->
+                                                </td>
+                                            </tr>
+                                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="view_detail_{{task.id}}">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Task Details</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">{{task.details}} </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#employee_table').DataTable();
+    $('#admins_table').DataTable();
+});
+</script>
+{% endblock %}

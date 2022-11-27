@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Profile</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Profile image</label>
+                            <div class="col-sm-9">
+                                {% if request.user.profile_updated %}
+                                <img src="/media/{{request.user.display_pic}}" class="img-thumbnail col-6">
+<!-- <button class="btn btn-dark my-4" type="submit" name="request_for_img">request for new image</button> -->
+                                {% else %}
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="upload" accept="image/*">
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <small>* can upload image only once</small><br>
+                                <button class="btn btn-dark my-4" type="submit">UPLOAD</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{request.user.first_name|title}} {{request.user.last_name|title}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Username</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{request.user.username}} " readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{request.user.email}} " readonly>
+                            </div>
+                        </div>
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Phone Number</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <input type="text" class="form-control" value="{{request.user.phone_number}} " readonly>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                         <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">StudentId< /label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{request.user.office_user_id}} " readonly>
+                            </div>
+                        </div>
+                         <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Reporting to</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{request.user.reporting_to}} " readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Department</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="{{request.user.programming_language.language_name}} " readonly>
+                            </div>
+
+                        </div>
+                          <div class="card-footer d-sm-flex justify-content-end">
+                         <a href="/dashboard/" class="btn btn-primary">Go Back</a>
+                     </div>
+                        <!-- <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Joined Date</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" value="{{request.user.programming_language.language_name}} " readonly>
+                                            </div>
+                                        </div> -->
+                    </form>
+                </div>
+            </div>
+             <div class="login_foot border-top pt-4">
+                <p class="text-center mb-0">© Suraj Kuikel Copyright. All right reserved.</p>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+{% endblock %}
+

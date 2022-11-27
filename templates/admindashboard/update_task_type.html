@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin-dashboard/view-all-tasktype/">Task Type</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Task Type</a></li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Edit Task Type</h4>
+            </div>
+             {% if added %}
+                <div class="alert alert-success alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <polyline points="9 11 12 14 22 4"></polyline>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    <strong>Success!</strong> Task Type successfully updated.
+                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+                {% endif %}
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Task Type Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="type_name"  value="{{view_type_name.type_name|title}}" required>
+                            </div>
+                        </div>
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Is Active</label>-->
+<!--                                <div>-->
+<!--                                   &nbsp &nbsp <input type="radio" name="is_active" value="False" checked="checked">False&nbsp&nbsp&nbsp-->
+<!--                                    <input type="radio" name="is_active" value="True" >True-->
+
+
+<!--                                </div>-->
+<!--&lt;!&ndash;                            <div class="col-sm-9">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <input type="text" class="form-control" name="for_all"  value="{{view_type_name.for_all}}" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Is Active</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <input type="text" class="form-control" name="is_active"  value="{{view_type_name.is_active}}" readonly>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Status</label>
+                                <div>
+                                    {% if view_type_name.is_active == False %}
+                                   &nbsp &nbsp <input type="radio" name="is_active" value="False" checked="checked">In-Active&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="is_active" value="True" >Active
+                                    {% else%}
+                                     &nbsp &nbsp <input type="radio" name="is_active" value="False">In-Active&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="is_active" value="True" checked="checked">Active
+                                    {%endif%}
+                                </div>
+
+                        </div>
+
+
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">For All</label>
+                                <div>
+                                    {% if view_type_name.for_all == False %}
+                                   &nbsp &nbsp <input type="radio" name="for_all" value="False" checked="checked">In-Active&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="for_all" value="True" >Active
+                                    {% else%}
+                                     &nbsp &nbsp <input type="radio" name="for_all" value="False">In-Active&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="for_all" value="True" checked="checked">Active
+                                    {%endif%}
+                                </div>
+
+                        </div>
+
+                        <div class="False selectt">
+                        <div class="form-group row" >
+                            <label class="col-sm-3 col-form-label">Department</label>
+                            <div class="col-sm-9" >
+
+                                  <select class="form-control"  name="programming_language"  id="id_programming_language">
+                                        <option value="">---------</option>
+                                             {%for i in ProgrammingLanguage_data%}
+                                        <option value={{i.pk}} {% if user.programming_language.pk == i.pk %} selected {% endif %}>{{i.language_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                        </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                              <div class="container">
+                                <div class="btn-block d-sm-flex justify-content-end">
+                                     <button type="submit" class="btn btn-sm btn-info">UPDATE</button>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Joined Date</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" value="{{request.user.programming_language.language_name}} " readonly>
+                                            </div>
+                                        </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}
+{% block js %}
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+
+ $(document).ready(function() {
+                $('input[type="radio"]').click(function() {
+                    var inputValue = $(this).attr("value");
+                    var targetBox = $("." + inputValue);
+                    $(".selectt").not(targetBox).hide();
+                    $(targetBox).show();
+<!--                    alert("Radio button " + inputValue + " is selected");-->
+                });
+            });
+</script>
+{% endblock %}

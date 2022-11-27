@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Task Type</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">TASK TYPES</h4>
+                  <div class="float-right"><a href="/admin-dashboard/create-tasktype" class="btn btn-primary btn-sm">Add New Task Type</a>
+                  </div>
+            </div>
+
+
+             <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>For All</th>
+                                <th>Multiple </th>
+                                <th>Department</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                        {% for typename in view_type  %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{typename.type_name|title}}</td>
+                                     {% if typename.is_active == True %}
+                                  <td> <span class="badge light badge-info">
+                                  <i class="fa fa-circle text-info mr-1"></i>
+                                  Active
+                                </span></td>
+                                 {% elif typename.is_active == False %}
+                                  <td> <span class="badge light badge-warning">
+                                  <i class="fa fa-circle text-warning mr-1"></i>
+                                  In-Active
+                                </span></td>
+                                  {% endif %}
+<!--                                <td>{{typename.is_active}}</td>-->
+<!--                                <td>{{typename.for_all}}</td>-->
+                                  {% if typename.for_all == True %}
+                               <td> <span class="badge light badge-info">
+                                  <i class="fa fa-circle text-info mr-1"></i>
+                                  Active
+                                  </span></td>
+                                   {% elif typename.for_all == False %}
+                                   <td> <span class="badge light badge-warning">
+                                    <i class="fa fa-circle text-warning mr-1"></i>
+                                    In-Active
+                                    </span>
+                                {% endif %}</td>
+                                    {% if typename.multiple_language == True %}
+                               <td> <span class="badge light badge-info">
+                                  <i class="fa fa-circle text-info mr-1"></i>
+                                  Active
+                                  </span></td>
+                                   {% elif typename.multiple_language == False %}
+                                   <td> <span class="badge light badge-warning">
+                                    <i class="fa fa-circle text-warning mr-1"></i>
+                                    In-Active
+                                    </span>
+                                {% endif %}</td>
+                                {%if typename.multiple_language == False %}
+
+                                <td>{{typename.id.programming_language.id|title}}</td>
+
+
+                                {%elif typename.multiple_language == True %}
+                                <td>
+                                    <a href="#view_multiple_language_{{typename.id}}" data-toggle="modal" data-target="#view_multiple_language_{{typename.id}}"   class="btn btn-sm btn-outline-danger">View Assignment</a></td>
+                                {%endif%}
+
+
+                                <td>
+                                    <a href="/admin-dashboard/edit-task-type/{{typename.id}}"  class="btn btn-sm btn-success">EDIT</a>
+                                <a href="#delete_{{typename.id}}" data-toggle="modal" data-target="#delete_{{typename.id}}"   class="btn btn-sm btn-danger">DELETE</a></td>
+                            </tr>
+                             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="delete_{{typename.id}}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                         <h4>Are you sure you want to delete?</h4>
+                                        <div class="modal-footer">
+                                             <a href="/admin-dashboard/delete-task-type/{{typename.id}}" class="btn btn-sm btn-warning">Confirm Delete</a>
+                                            <button type="button" class="btn btn-sm btn-danger light" data-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="view_multiple_language_{{typename.pk}}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Assignment Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4 class="card-title">Branch/Department</h4>
+                                                        </div>
+
+                                                        <div class="card-body">
+                                                            <div class="basic-form">
+                                                                <form method="post" enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                     <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Assignment</label>
+                                                                        <div class="col-sm-9">
+
+                                                                             {% for mk in a  %}
+                                                                            {%ifequal typename.id mk.task_type_id%}
+                                                                              <input type="text" class="form-control mt-1"  name="programming_language"  value="{{mk.programming_language}}" readonly>
+                                                                         {%endifequal%}
+
+                                                                        {% endfor %}
+                                                                        </div>
+                                                                     </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+
+                                                                     </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+             </div>
+             <div class="login_foot border-top pt-4">
+                <p class="text-center mb-0">©SurajKuikel Copyright. All right reserved.</p>
+              </div>
+
+       </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}

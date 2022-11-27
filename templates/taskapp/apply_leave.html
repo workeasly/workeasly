@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Apply Leave</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Apply Leave</h4>
+            </div>
+             {% if added %}
+                <div class="alert alert-success alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <polyline points="9 11 12 14 22 4"></polyline>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    <strong>Success!</strong>Leave Applied Successfully.
+                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+                {% endif %}
+
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Leave Period</label>
+                            <div class="col-sm-9">
+                                <input type="radio" name="leave_period" value="full" id="full" checked>Full Leave&nbsp;&nbsp;&nbsp;
+                                   <input type="radio" name="leave_period" value="short" id="short">Short Leave
+
+
+                            </div>
+                        </div>
+                        <div class="leavetime selecttt d-none" id="leavetime">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Leave Time</label>
+                            <div class="col-sm-9">
+                                   <input type="radio" name="leave_time" value="morning" >Morning Leave&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="leave_time" value="evening" >Evening Leave
+
+                            </div>
+                        </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Start Date</label>
+                            <div class="col-sm-9">
+                                   <input type="date" class="form-control" name="start_date" placeholder="Enter Leave Start Date" >
+                            </div>
+                        </div>
+                         <div class="form-group row " id="end_date">
+                            <label class="col-sm-3 col-form-label">End Date</label>
+                            <div class="col-sm-9">
+                                   <input type="date" class="form-control" name="end_date" placeholder="Enter Leave End Date" >
+                            </div>
+                        </div>
+
+
+
+                         <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Leave Type</label>
+                            <div class="col-sm-9">
+                                <select
+                            class="form-control"
+                            name="leave_type"
+                            id="leavetype" required>
+
+                            <option value="">Select Leave Type</option>
+                            <option value="sick">Sick</option>
+                            <option value="casual">Casual</option>
+                            <option value="urgent work">Urgent Work</option>
+                            <option value="maternity">Maternity</option>
+                            <option value="quarantine">Quarantine</option>
+                            <option value="marriage">Marriage</option>
+                          </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Description</label>
+                            <div class="col-sm-9">
+                                   <input type="text" class="form-control" name="leave_description" placeholder="Enter Leave Description" >
+                            </div>
+                        </div>
+
+<!--                         <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Report From</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <input type="date" class="form-control" name="duration_from" placeholder="Enter Reporting From"  required>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                          <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Report Till</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <input type="date" class="form-control" name="duration_till" placeholder="Enter Reporting Till" required >-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                            <div class="container">
+                                <div class="btn-block d-sm-flex justify-content-end">
+                                     <button type="submit" class="btn btn-sm btn-primary">SAVE</button>&nbsp;
+                                     <button type="reset" class="btn btn-sm btn-warning">CANCEL</button>
+                             </div>
+
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+
+
+
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+
+
+
+
+$(document).ready(function() {
+   $('input[type="radio"]').click(function() {
+       if($(this).attr('id') == 'short') {
+
+            $(".leavetime").removeClass("d-none");
+            var element = document.getElementById("end_date");
+  element.classList.add("d-none");
+
+
+
+       }
+
+       else {
+
+        if($(this).attr('id') == 'full') {
+            $(".leavetime").addClass("d-none");
+            var element = document.getElementById("end_date");
+  element.classList.remove("d-none");
+
+       }
+
+
+       }
+   });
+});
+
+</script>
+{% endblock %}

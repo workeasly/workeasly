@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fcm token</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-messaging.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+     <script>
+
+     Notification.requestPermission().then(function(result) {
+  console.log(result);
+});
+
+        var firebaseConfig = {
+              apiKey: "AIzaSyDiC7mAqj75uugamxNxOpr0OiS_TyMv-4U",
+              authDomain: "pushnotification-4b81e.firebaseapp.com",
+              projectId: "pushnotification-4b81e",
+              storageBucket: "pushnotification-4b81e.appspot.com",
+              messagingSenderId: "656952663469",
+              appId: "1:656952663469:web:2d62cd85ff941afbc85524",
+              measurementId: "G-SYFSB3F2K7",
+              databaseURL: "https://pushnotification-4b81e-default-rtdb.europe-west1.firebasedatabase.app/"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const messaging = firebase.messaging();
+        console.log(messaging.getToken())
+        messaging.getToken({ vapidKey: 'BHgYJsV-OodQsnYgNcbeJArO3IzWRQ4dnIO9d4BOwNwxF65MWM7e1c3ZS4IMfWNxxma9PciV8dwAIEN0MI0x9ds' }).then((currentToken) => {
+        if (currentToken) {
+
+          console.log(currentToken)
+
+              $.ajax({
+        url: '/notification/',
+        type:"POST",
+        data: {
+
+          'fcm': currentToken
+        },
+
+      });
+
+        } else {
+          console.log('No registration token available. Request permission to generate one.');
+
+        }
+      }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+      });
+
+
+        messaging
+         .requestPermission()
+         .then(function () {
+           console.log("Notification permission granted.");
+           return messaging.getToken()
+         })
+         .catch(function (err) {
+         console.log("Unable to get permission to notify.", err);
+       });
+
+
+        messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
+
+      });
+
+
+
+      </script>
+</head>
+
+<body>
+
+<h1>fcm token has been generated</h1>
+
+
+</body>
+
+</html>

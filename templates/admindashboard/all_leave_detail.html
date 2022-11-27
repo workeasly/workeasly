@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load CustomTaskappTags %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Leave</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">LEAVE DETAIL</h4>
+<!--                  <div class="float-right"><a href="/tasks/add-task" class="btn btn-primary btn-sm">ADD NEW TASK</a>-->
+<!--                  </div>-->
+
+            </div>
+            <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Employee</th>
+                                <th>Leave Period</th>
+                                <th>Leave Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+<!--                                <th>Description</th>-->
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in detail %}
+                            <tr>
+
+                                <td>{{forloop.counter}}</td>
+                                <td>{{i.user.username}}</td>
+                                <td>{{i.leave_period|title}}</td>
+                                <td>{{i.leave_type|title}}</td>
+                                <td>{{i.start_date}}</td>
+                                <td>{{i.end_date}}</td>
+<!--                                <td>{{i.leave_description}}</td>-->
+                                 {% if i.is_pending %}
+                               <td> <span class="badge light badge-warning">
+                                  <i class="text-info mr-1"></i>
+                                  Pending
+                                  </span></td>
+                                   {% elif i.is_approved %}
+                                   <td> <span class="badge light badge-success">
+                                    <i class="text-info mr-1"></i>
+                                    Approved
+                                    </span>
+
+                                   </td>
+                                 {% elif i.is_rejected%}
+                                 <td> <span class="badge light badge-danger">
+                                    <i class="text-info mr-1"></i>
+                                    Rejected
+                                    </span>
+
+                                   </td>
+                                  {% endif %}
+                                <td>
+
+                                <div class="btn-group" role="group" >
+                                    <a href="/admin-dashboard/approve/{{i.id}}/"  class="btn btn-sm btn-success">APPROVE</a>
+                                    <a href="/admin-dashboard/reject/{{i.id}}/" class="btn btn-sm btn-danger">REJECT</a>
+                                </div>
+                                </td>
+
+
+
+                            </tr>
+                            {%endfor%}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}

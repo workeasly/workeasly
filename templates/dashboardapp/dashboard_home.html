@@ -1,0 +1,480 @@
+{% extends 'base.html' %}
+{% load CustomTaskappTags %}
+{% block content %}
+{% if employee_tab %}
+
+
+
+<div class="row">
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card" style="background:linear-gradient(135deg, #aecaef 0%,#e1d7f2 100%);">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-primary text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 172 172" style=" fill:#000000;">
+                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path>
+                                <g fill="#000000">
+                                    <path d="M63.7037,39.81481v-11.14815h-16.72222c-9.21952,0 -16.72222,7.5027 -16.72222,16.72222v66.88889c0,9.21952 7.5027,16.72222 16.72222,16.72222h94.75926v-89.18519zM52.55556,101.12963h-5.57407c-1.9565,0 -3.83496,0.34002 -5.57407,0.95317v-56.69391c0,-3.07131 2.49719,-5.57407 5.57407,-5.57407h5.57407zM125.01852,89.98148l-7.20728,-7.20728l-20.66309,20.66309l-11.14815,-11.14815l-9.55954,9.55954l-7.88174,-7.88174l17.44128,-17.44128l11.14815,11.14815l12.78135,-12.78135l-7.20728,-7.20728h22.2963z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Projects</p>
+                        <h4 class="mb-0">{{user_project_count}}</h4><br>
+                        <span class="badge badge-primary"><a href="/projects/" class="text-white">view</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card" style="background:linear-gradient(135deg, #aecaef 0%,#e1d7f2 100%);">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-primary text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
+                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path>
+                                <g fill="#2ecc71">
+                                    <path d="M41.968,28.208c-7.56667,0 -13.76,6.19333 -13.76,13.76v88.064c0,7.56667 6.19333,13.76 13.76,13.76h88.064c7.56667,0 13.76,-6.19333 13.76,-13.76v-88.064c0,-7.56667 -6.19333,-13.76 -13.76,-13.76zM41.968,33.712h88.064c4.59167,0 8.256,3.66433 8.256,8.256v88.064c0,4.59167 -3.66433,8.256 -8.256,8.256h-88.064c-4.59167,0 -8.256,-3.66433 -8.256,-8.256v-88.064c0,-4.59167 3.66433,-8.256 8.256,-8.256zM50.224,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v66.048c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-66.048c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM102.512,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v33.024c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-33.024c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM50.224,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v66.048c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-66.048c0,-1.55496 1.19704,-2.752 2.752,-2.752zM102.512,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v33.024c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-33.024c0,-1.55496 1.19704,-2.752 2.752,-2.752z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Tasks</p>
+                        <h4 class="mb-0">{{user_tasks_count}}</h4><br>
+                        <span class="badge badge-primary"><a href="/tasks/" class="text-white">view</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card" style="background:linear-gradient(135deg, #aecaef 0%,#e1d7f2 100%);">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-primary text-primary">
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">-->
+                        <img src="https://img.icons8.com/external-icongeek26-flat-icongeek26/48/000000/external-immigration-airport-icongeek26-flat-icongeek26-1.png"/>
+                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path>
+                                <g fill="#2ecc71">
+                                    <path d="M41.968,28.208c-7.56667,0 -13.76,6.19333 -13.76,13.76v88.064c0,7.56667 6.19333,13.76 13.76,13.76h88.064c7.56667,0 13.76,-6.19333 13.76,-13.76v-88.064c0,-7.56667 -6.19333,-13.76 -13.76,-13.76zM41.968,33.712h88.064c4.59167,0 8.256,3.66433 8.256,8.256v88.064c0,4.59167 -3.66433,8.256 -8.256,8.256h-88.064c-4.59167,0 -8.256,-3.66433 -8.256,-8.256v-88.064c0,-4.59167 3.66433,-8.256 8.256,-8.256zM50.224,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v66.048c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-66.048c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM102.512,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v33.024c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-33.024c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM50.224,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v66.048c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-66.048c0,-1.55496 1.19704,-2.752 2.752,-2.752zM102.512,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v33.024c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-33.024c0,-1.55496 1.19704,-2.752 2.752,-2.752z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Attendance</p>
+                        <h4 class="mb-0">{{user_attendence_count}}</h4><br>
+                        <span class="badge badge-primary"><a href="/tasks/single-user-attendence-detail/" class="text-white">view</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card" style="background:linear-gradient(135deg, #aecaef 0%,#e1d7f2 100%);">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-secondary text-secondary">
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">-->
+<img src="https://img.icons8.com/external-dygo-kerismaker/48/000000/external-Pending-management-dygo-kerismaker.png"/>                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path>
+                                <g fill="#2ecc71">
+                                    <path d="M41.968,28.208c-7.56667,0 -13.76,6.19333 -13.76,13.76v88.064c0,7.56667 6.19333,13.76 13.76,13.76h88.064c7.56667,0 13.76,-6.19333 13.76,-13.76v-88.064c0,-7.56667 -6.19333,-13.76 -13.76,-13.76zM41.968,33.712h88.064c4.59167,0 8.256,3.66433 8.256,8.256v88.064c0,4.59167 -3.66433,8.256 -8.256,8.256h-88.064c-4.59167,0 -8.256,-3.66433 -8.256,-8.256v-88.064c0,-4.59167 3.66433,-8.256 8.256,-8.256zM50.224,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v66.048c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-66.048c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM102.512,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v33.024c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-33.024c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM50.224,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v66.048c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-66.048c0,-1.55496 1.19704,-2.752 2.752,-2.752zM102.512,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v33.024c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-33.024c0,-1.55496 1.19704,-2.752 2.752,-2.752z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Pending Leave</p>
+                        <h4 class="mb-0">{{user_pending_leave}}</h4><br>
+                        <span class="badge badge-primary"><a href="#" class="text-white">view</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card" style="background:linear-gradient(135deg, #aecaef 0%,#e1d7f2 100%);">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-primary text-primary">
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">-->
+<img src="https://img.icons8.com/external-others-iconmarket/64/000000/external-accepted-android-app-others-iconmarket-3.png"/>                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path>
+                                <g fill="#2ecc71">
+                                    <path d="M41.968,28.208c-7.56667,0 -13.76,6.19333 -13.76,13.76v88.064c0,7.56667 6.19333,13.76 13.76,13.76h88.064c7.56667,0 13.76,-6.19333 13.76,-13.76v-88.064c0,-7.56667 -6.19333,-13.76 -13.76,-13.76zM41.968,33.712h88.064c4.59167,0 8.256,3.66433 8.256,8.256v88.064c0,4.59167 -3.66433,8.256 -8.256,8.256h-88.064c-4.59167,0 -8.256,-3.66433 -8.256,-8.256v-88.064c0,-4.59167 3.66433,-8.256 8.256,-8.256zM50.224,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v66.048c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-66.048c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM102.512,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v33.024c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-33.024c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM50.224,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v66.048c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-66.048c0,-1.55496 1.19704,-2.752 2.752,-2.752zM102.512,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v33.024c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-33.024c0,-1.55496 1.19704,-2.752 2.752,-2.752z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Accepted Leave</p>
+                        <h4 class="mb-0">{{user_approved_leave}}</h4><br>
+                        <span class="badge badge-primary"><a href="/#/" class="text-white">view</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card" style="background:linear-gradient(135deg, #aecaef 0%,#e1d7f2 100%);">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-danger text-danger">
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">-->
+                        <img src="https://img.icons8.com/external-bearicons-flat-bearicons/64/000000/external-rejected-approved-and-rejected-bearicons-flat-bearicons-8.png"/>
+                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path>
+                                <g fill="#2ecc71">
+                                    <path d="M41.968,28.208c-7.56667,0 -13.76,6.19333 -13.76,13.76v88.064c0,7.56667 6.19333,13.76 13.76,13.76h88.064c7.56667,0 13.76,-6.19333 13.76,-13.76v-88.064c0,-7.56667 -6.19333,-13.76 -13.76,-13.76zM41.968,33.712h88.064c4.59167,0 8.256,3.66433 8.256,8.256v88.064c0,4.59167 -3.66433,8.256 -8.256,8.256h-88.064c-4.59167,0 -8.256,-3.66433 -8.256,-8.256v-88.064c0,-4.59167 3.66433,-8.256 8.256,-8.256zM50.224,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v66.048c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-66.048c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM102.512,41.968c-4.52696,0 -8.256,3.72904 -8.256,8.256v33.024c0,4.52696 3.72904,8.256 8.256,8.256h19.264c4.52696,0 8.256,-3.72904 8.256,-8.256v-33.024c0,-4.52696 -3.72904,-8.256 -8.256,-8.256zM50.224,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v66.048c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-66.048c0,-1.55496 1.19704,-2.752 2.752,-2.752zM102.512,47.472h19.264c1.55496,0 2.752,1.19704 2.752,2.752v33.024c0,1.55496 -1.19704,2.752 -2.752,2.752h-19.264c-1.55496,0 -2.752,-1.19704 -2.752,-2.752v-33.024c0,-1.55496 1.19704,-2.752 2.752,-2.752z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Rejected Leave</p>
+                        <h4 class="mb-0">{{user_rejected_leave}}</h4><br>
+                        <span class="badge badge-primary"><a href="#" class="text-white">view</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+
+{% endif %}
+{% if request.user.is_superuser %}
+<div class="row">
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-primary text-primary">
+                        <!-- <i class="ti-user"></i> -->
+<!--                        <svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">-->
+                        <img src="https://img.icons8.com/color/48/000000/checked-user-male--v1.png"/>
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Users</p>
+                        <h4 class="mb-0">{{total_users}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-all-users/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-primary">+3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-primary text-primary">
+                        <!-- <i class="ti-user"></i> -->
+<!--                        <svg id="icon-customers" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">-->
+                        <img src="https://img.icons8.com/color/48/undefined/id-not-verified.png"/>
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">EX-Student</p>
+                        <h4 class="mb-0">{{total_ex_users}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-all-inactive-users/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-primary">+3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-warning text-warning">
+<!--                        <svg id="icon-orders" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">-->
+                        <img src="https://img.icons8.com/fluency/48/000000/edit-calendar.png"/>
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Tasks Type</p>
+                        <h4 class="mb-0">{{total_tasks}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-all-tasktype/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-warning">+3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body  p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-danger text-danger">
+<!--                        <svg id="icon-revenue" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign">-->
+                        <img src="https://img.icons8.com/external-becris-lineal-color-becris/64/000000/external-networking-cryptocurrency-blockchain-becris-lineal-color-becris.png"/>
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Departments</p>
+                        <h4 class="mb-0">{{total_departments}}</h4><br>
+                           <span class="badge badge-primary"><a href="/admin-dashboard/view-all-programming-language/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-danger">-3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-success text-success">
+<!--                        <svg id="icon-database-widget" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">-->
+                        <img src="https://img.icons8.com/emoji/48/000000/desktop-computer.png"/>
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Systems</p>
+                        <h4 class="mb-0">{{total_systems}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-all-system-details/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-success">-3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-primary text-primary">
+<!--                        <svg id="icon-database-widget" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">-->
+                        <img src="https://img.icons8.com/emoji/48/000000/calendar-emoji.png"/>
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">User Task</p>
+                        <h4 class="mb-0">{{total_user_task}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-all-user-task/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-success">-3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-warning text-warning">
+<!--                        <svg id="icon-database-widget" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">-->
+                        <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-document-taxes-flatart-icons-flat-flatarticons-1.png"/>
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">User Project</p>
+                        <h4 class="mb-0">{{total_user_project}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-all-user-project/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-success">-3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-secondary text-secondary">
+<!--                        <svg id="icon-database-widget" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">-->
+                       <img src="https://img.icons8.com/external-dygo-kerismaker/48/000000/external-Pending-management-dygo-kerismaker.png"/>
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Pending Leave</p>
+                        <h4 class="mb-0">{{total_pending_leave}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-pending-leave/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-success">-3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-success text-success">
+<!--                        <svg id="icon-database-widget" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">-->
+                        <img src="https://img.icons8.com/external-others-iconmarket/64/000000/external-accepted-android-app-others-iconmarket-3.png"/>
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Accepted Leave</p>
+                        <h4 class="mb-0">{{total_approved_leave}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-approved-leave/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-success">-3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    <div class="col-xl-3 col-lg-6 col-sm-6">
+        <div class="widget-stat card">
+            <div class="card-body p-4">
+                <div class="media ai-icon">
+                    <span class="mr-3 bgl-danger text-danger">
+<!--                        <svg id="icon-database-widget" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">-->
+<img src="https://img.icons8.com/external-bearicons-flat-bearicons/64/000000/external-rejected-approved-and-rejected-bearicons-flat-bearicons-8.png"/>                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </span>
+                    <div class="media-body">
+                        <p class="mb-1">Rejected Leave</p>
+                        <h4 class="mb-0">{{total_rejected_leave}}</h4><br>
+                         <span class="badge badge-primary"><a href="/admin-dashboard/view-rejected-leave/" class="text-white">view</a></span>
+<!--                        <span class="badge badge-success">-3.5%</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+
+{% endif %}
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-messaging.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+     <script>
+         if(Notification.permission=="default"){
+        Notification.requestPermission();
+    }
+
+
+
+ if (Notification.permission =="denied"){
+
+        Notification.requestPermission().then(permission =>{
+            console.log(permission)
+            alert("Give permission to push notification")
+
+
+        })
+    }
+        var firebaseConfig = {
+              apiKey: "AIzaSyDiC7mAqj75uugamxNxOpr0OiS_TyMv-4U",
+              authDomain: "pushnotification-4b81e.firebaseapp.com",
+              projectId: "pushnotification-4b81e",
+              storageBucket: "pushnotification-4b81e.appspot.com",
+              messagingSenderId: "656952663469",
+              appId: "1:656952663469:web:2d62cd85ff941afbc85524",
+              measurementId: "G-SYFSB3F2K7",
+              databaseURL: "https://pushnotification-4b81e-default-rtdb.europe-west1.firebasedatabase.app/"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const messaging = firebase.messaging();
+        console.log(messaging.getToken())
+        messaging.getToken({ vapidKey: 'BHgYJsV-OodQsnYgNcbeJArO3IzWRQ4dnIO9d4BOwNwxF65MWM7e1c3ZS4IMfWNxxma9PciV8dwAIEN0MI0x9ds' }).then((currentToken) => {
+        if (currentToken) {
+
+          console.log(currentToken)
+
+              $.ajax({
+        url: '/notification/',
+        type:"POST",
+        data: {
+
+          'fcm': currentToken
+        },
+
+      });
+
+        } else {
+          console.log('No registration token available. Request permission to generate one.');
+
+        }
+      }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+      });
+
+
+        messaging
+         .requestPermission()
+         .then(function () {
+           console.log("Notification permission granted.");
+           return messaging.getToken()
+         })
+         .catch(function (err) {
+         console.log("Unable to get permission to notify.", err);
+       });
+
+
+        messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
+
+      });
+
+
+
+      </script>
+{% endblock %}
+{% block js %}
+{% endblock %}

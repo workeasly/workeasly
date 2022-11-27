@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Interviewee Record</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+<!--                <h4 class="card-title">USER</h4>-->
+<!--                  <div class="float-right"><a href="/admin-dashboard/user-create" class="btn btn-primary btn-sm">Add New User</a>-->
+<!--                  </div>-->
+             </div>
+         <div class="card-body">
+             <div class="table-responsive">
+            <table id="example" class="display table-responsive-md" style="min-width: 2000px">
+                <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Candidate Name</th>
+                                <th>Department</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Description</th>
+                               
+                            </tr>
+                    <tbody>
+                        {% for person in  admission %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{person.first_name}} {{person.last_name}}</td>
+                                <td>{{person.department}}</td>
+                                <td>{{person.email}}</td>
+                                <td>{{person.phone}}</td>
+                                <td>{{person.address}}</td>
+                            
+                                <td>{{person.desctiption}}</td>
+                           
+                                 
+<!--                              <td><a href="#view_single_user_{{person.id}}" data-toggle="modal" data-target="#view_single_user_{{person.id}}" class="btn btn-sm btn-primary">View</a>-->
+<!--                               <a href="/admin-dashboard/view-single-user-all-task/{{person.id}}" class="btn btn-sm btn-info">Task</a>-->
+<!--                                <a href="/admin-dashboard/edit-user/{{person.id}}"  class="btn btn-sm btn-success">Edit</a>-->
+<!--                                <a href="#delete_{{person.id}}" data-toggle="modal" data-target="#delete_{{person.id}}" class="btn btn-sm btn-danger">Delete</a></td>-->
+                            </tr>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="delete_{{person.id}}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                         <h4>Are you sure you want to delete?</h4>
+                                        <div class="modal-footer">
+                                             <a href="/admin-dashboard/delete-user/{{person.id}}" class="btn btn-sm btn-warning">Confirm Delete</a>
+                                            <button type="button" class="btn btn-sm btn-danger light" data-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="view_single_user_{{person.id}}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">User Detail</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4 class="card-title">Profile</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="basic-form">
+                                                                <form method="post" enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                     <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">Profile image</label>
+                                                                            <div class="col-sm-9">
+                                                                                <img src="/media/{{person.profile}}" class="img-thumbnail col-6">
+                                                                            </div>
+                                                                     </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">First name</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="first_name" value="{{person.first_name|title}}" readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                     <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Last name</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="last_name" value="{{person.last_name|title}}" readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Username</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control"  name="username"  value="{{person.username|title}}" readonly>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Email</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="email"  value="{{person.email}}"  readonly>
+                                                                        </div>
+                                                                    </div>
+
+<!--                                                                    <div class="form-group row">-->
+<!--                                                                        <label class="col-sm-3 col-form-label">Phone Number</label>-->
+<!--                                                                        <div class="col-sm-9">-->
+<!--                                                                            <input type="text" class="form-control" name="phone_number"  value="{{person.phone_number}}"  readonly>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+
+                                                                     <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Student Id</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control"  name="office_user_id"  value="{{person.office_user_id}}"  readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                     <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Reporting to</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control"  name="reporting_to" value="{{person.reporting_to|title}}" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                     <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">Phone number</label>
+                                                                            <div class="col-sm-9">
+                                                                                 <input type="text" class="form-control" name="user_phone_number"  value="{{person.phone_number}}" >
+                                                                            </div>
+                                                                     </div>
+                                                                     <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">Alternate Phone Number</label>
+                                                                            <div class="col-sm-9">
+                                                                                 <input type="text" class="form-control" name="user_joining_date"  value="{{person.Alternate_phone_number}}" >
+                                                                            </div>
+                                                                     </div>
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Department</label>
+                                                                        <div class="col-sm-9">
+                                                                              <input type="text" class="form-control"  name="programming_language_id" value="{{person.programming_language.language_name|title}}" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">Joining Date</label>
+                                                                            <div class="col-sm-9">
+                                                                                 <input type="text" class="form-control" name="user_joining_date"  value="{{person.joining_date}}" >
+                                                                            </div>
+                                                                     </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                             <a href="tel:+91{{person.phone_number}}"  class="btn btn-sm btn-primary">CALL</a>
+                                    <a href="mailto:{{person.email}}"  class="btn btn-sm btn-success">SEND MAIL</a>
+                                        <button type="button" class="btn btn-sm btn-danger light" data-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+                        {% endfor %}
+
+
+ {% for person in  x %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{person.name|title}}</td>
+                                <td>{{person.interviwer_name|title}}</td>
+                                <td>{{person.profile}}</td>
+                                <td>{{person.experience}}</td>
+                                <td>{% if person.status == True %}
+                                pass
+                                {% else %}Fail
+                                {% endif %}</td>
+                                <td>Walk-in</td>
+                                <td>{{person.date|date:"d-m-y"}}</td>
+                                <td>
+   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModall{{forloop.counter}}">
+  Show Cv
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModall{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+          {% if ".jpeg" in person.cv.url or ".png" in person.cv.url  %}
+            <img src="{{person.cv.url}}" height="auto" width="100%" />
+          {% elif ".pdf" in person.cv.url %}
+          <iframe src="{{person.cv.url}}"  width="100%" height="auto"></iframe>
+          {% else %}
+          <p>fbdbdbdb</p>
+
+          {% endif %}
+
+        </div>
+    </div>
+  </div>
+</div>
+ </td>
+       </tr>
+            {% endfor %}
+
+
+
+                  </tbody>
+                </thead>
+            </table>
+         </div>
+        </div>
+
+             <div class="login_foot border-top pt-4">
+                <p class="text-center mb-0">©Suraj Kuikel Copyright. All right reserved.</p>
+              </div>
+       </div>
+    </div>
+</div>
+
+
+
+<!-- Button trigger modal -->
+
+
+
+
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Attendence Detail</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">{{request.user}}</h4>
+                  <div class="float-right"><a href="/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
+                  </div>
+            </div>
+
+
+             <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Date</th>
+                                <th>Entry Time</th>
+                                <th>Exit Time</th>
+                                <th>Worked Hours</th>
+                                <th>Marked As</th>
+
+                            </tr>
+                        </thead>
+                         <tbody>
+                        {% for i in detail %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{i.attend_date}}</td>
+                                <td>{{i.punch_in}}</td>
+                                <td>{{i.punch_out}}</td>
+                                <td>{{i.working_hours}}</td>
+                                   {% if i.attendence.presence == True %}
+                                <td> <span class="badge light badge-info">
+                                   <i class="text-info mr-1"></i>
+                                    Present
+                                </span></td>
+                                  {% elif i.attendence.presence == False %}
+                                <td> <span class="badge light badge-warning">
+                                    <i class="text-info mr-1"></i>
+                                  Absent
+                                </span></td>
+                                  {% endif %}
+                            </tr>
+                         {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+             </div>
+       </div>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}
+

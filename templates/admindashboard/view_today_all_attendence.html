@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Attendance</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-header">
+
+                <h4 class="card-title">Attendance</h4>
+                  <div class="float-right"><a href="/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
+                  </div>
+
+            </div>
+
+
+             <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Student Id</th>
+<!--                                <th> Name</th>-->
+                                <th>Username</th>
+                                <th>Date</th>
+                                <th>Marked As</th>
+
+                            </tr>
+                        </thead>
+                         <tbody>
+                        {% for detail in  today %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{detail.user.office_user_id}}</td>
+<!--                                <td>{{detail.first_name|title}} {{detail.last_name|title}}</td>-->
+                                <td>{{detail.user.username}}</td>
+                                <td>{{detail.attend_date}}</td>
+                                 {% if detail.presence == True %}
+                                <td> <span class="badge light badge-info">
+                                   <i class="text-info mr-1"></i>
+                                    Present
+                                </span></td>
+                                  {% elif detail.presence == False %}
+                                <td> <span class="badge light badge-warning">
+                                    <i class="text-info mr-1"></i>
+                                  Absent
+
+                                </span></td>
+                                  {% endif %}
+
+
+<!--                               <div class="btn-group" role="group" aria-label="Basic example">-->
+<!--&lt;!&ndash;                                  <button type="button" a href="#view_single_user_{{person.id}}" data-toggle="modal" data-target="#view_single_user_{{person.id}}" class="btn btn-sm btn-info">VIEW ATTENDANCE</a></button>&ndash;&gt;-->
+<!--                                      <a href="/admin-dashboard/view-single-user-attendance/{{detail.id}}"  class="btn btn-sm btn-info">VIEW ATTENDANCE</a>-->
+<!--&lt;!&ndash;                                <button type="button" a href="#delete_{{person.id}}" data-toggle="modal" data-target="#delete_{{person.id}}" class="btn btn-sm btn-danger">DELETE</a></button>&ndash;&gt;-->
+<!--                               </div>-->
+
+                            </tr>
+                         {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                     <div class="login_foot border-top pt-4">
+                <p class="text-center mb-0">©Suraj KuikelCopyright. All right reserved.</p>
+              </div>
+             </div>
+       </div>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}
+

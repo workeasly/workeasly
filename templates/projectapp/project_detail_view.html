@@ -1,0 +1,139 @@
+{% extends 'base.html' %}{% load CustomTaskappTags %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/projects/">Projects</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">View Project</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <ul class="list-group list-group-flush">
+                    <h4 class="card-title">PROJECT DETAILS</h4>
+                    <li class="list-group-item d-flex px-0 justify-content-between">
+                        <strong>Title </strong>
+                        <span class="mb-0"> &nbsp; &nbsp;{{project_details.title|title}}</span>
+                    </li>
+
+                    <li class="list-group-item d-flex px-0 justify-content-between">
+                        <strong>Status</strong>
+                        <span class="mb-0"> {% if project_details.is_active %}
+                            <span class="badge light badge-warning">
+                                <i class="fa fa-circle text-warning mr-1"></i>
+                                Active
+                            </span>
+
+                            <form method="POST">
+                                {% csrf_token %}
+<!--                            <input type="radio" value="completed" name="completed" > completed-->
+                                 <div class="radio mt-2">
+                                        <label><input type="checkbox" name="status" value="completed"> Completed</label>
+                                        <div id="show_completed_date" class="pt-1"> <label>Completion Date</label>
+                                            <input type="date" class="form-control" placeholder="Select Date" name="completed_date" required>
+                                        <button class="btn btn-success">update</button>
+                                        </div>
+                                    </div>
+
+                            </form>
+
+
+                            {% endif %}
+                            {% if project_details.completed %}
+                            <span class="badge light badge-info">
+                                <i class="fa fa-circle text-info mr-1"></i>
+                                Completed
+                            </span>
+                            {% endif %}</span>
+                    </li>
+                    <li class="list-group-item d-flex px-0 justify-content-between">
+                        <strong>Date</strong>
+                        <span class="mb-0">{{project_details.started_on|date:"M d, Y"}}
+                            {% if project_details.completed_on %}
+                            - {{project_details.completed_on|date:"M d, Y"}}
+                            {% else %}
+                            - till date
+                            {% endif %}</span>
+                    </li>
+                    <li class="list-group-item d-flex px-0 justify-content-between">
+                        <strong>Description &nbsp;&nbsp; </strong>
+                        <span class="mb-0"> &nbsp; &nbsp;{{project_details.details|title}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">PROJECT TIMELINE</h4>
+
+                <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll" style="height:370px;">
+                    <ul class="timeline">
+                        {% for task in task_details %}
+                        <li>
+                            <div class="timeline-badge primary"></div>
+                            <a class="timeline-panel text-muted" href="#">
+                                <span>
+                                    <h5>{{task.added_on}}</h5>
+                                </span>
+                                <p class="mb-0">{{task.details}}.</p>
+                                 <button type="button" class="btn btn-info btn-sm  mb-2" data-toggle="modal" data-target="#files_model{{forloop.counter}}">View Files</button>
+                                    <div class="modal fade bd-example-modal-lg" id="files_model{{forloop.counter}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">TASK <span>added on {{task.added_on}} </span></h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  {% for file_uploaded_data in uploaded_files_data %}
+                                                  {% ifequal file_uploaded_data.task_id task.id %}
+                                                  {{file_uploaded_data.extension|check_file_type:file_uploaded_data.uploaded_file}}
+
+
+                                                  {% endifequal %}
+
+                                                  {% endfor %}
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+                <div class="card-footer d-sm-flex justify-content-end">
+                           <a href="/projects/ " class="btn btn-primary">Go Back</a>
+                     </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+$('#show_completed_date').hide();
+// $('#show_completed_date_label').hide();
+
+$('input:checkbox[name="status"]').change(
+    function() {
+        if ($(this).is(':checked') && $(this).val() == 'completed') {
+            $('#show_completed_date').show();
+            // $('#show_completed_date_label').show();
+        }
+        if ($(this).is(':checked') && $(this).val() == 'active') {
+            $('#show_completed_date').hide();
+            // $('#show_completed_date_label').hide();
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load CustomTaskappTags %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Tasks</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">TASKS</h4>
+                  <div class="float-right"><a href="/tasks/add-task" class="btn btn-primary btn-sm">ADD NEW TASK</a>
+                  </div>
+
+            </div>
+            <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Task Type</th>
+                                <th>Description</th>
+                                <th>Added on</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for task in all_task_details %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{task.task_type.type_name}}</td>
+                                <td>{{task.details|truncatechars:60}} <a href="#view_detail_{{task.id}}" data-toggle="modal" data-target="#view_detail_{{task.id}}" class="text-info"> view more</a></td>
+                                <td>{{task.added_on}}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="/tasks/view-task/{{task.id}}" class="btn btn-sm btn-primary">VIEW</a>
+                                        {{task.id|check_edit_able}}
+<!--                                        <a href="/tasks/edit-task/{{task.id}}" class="btn btn-sm btn-success">EDIT</a>-->
+
+                                        <a href="/tasks/delete-task/{{task.id}}" class="btn btn-sm btn-danger">DELETE</a>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="view_detail_{{task.id}}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Task Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">{{task.details}} </div>
+
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}

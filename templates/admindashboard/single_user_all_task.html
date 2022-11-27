@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin-dashboard/view-all-users/">User</a></li>
+
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Task</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                {%for detail in userdetail%}
+                <h4 class="card-title"><b>USER:{{detail.username|title}}</b></h4>
+                  <div class="float-right"> <a href="tel:+91{{detail.phone_number}}"  class="btn btn-sm btn-primary">CALL</a>
+                 <a href="mailto:{{detail.email}}"  class="btn btn-sm btn-success">SEND MAIL</a>
+                  </div>
+                {%endfor%}
+             </div>
+             <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 1050px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+<!--                                <th>User</th>-->
+                                <th>Type</th>
+                                <th>Details</th>
+                                <th>Added On</th>
+                                <th>Updated On</th>
+                                <th>Action</th>
+                            </tr>
+                         <tbody>
+                        {% for detail in  taskdetail %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+<!--                                <td>{{task.user.username}}</td>-->
+                                <td>{{detail.task_type.type_name|title}}</td>
+                                <td>{{detail.details|truncatechars:60}} <a href="#view_detail_{{detail.id}}" data-toggle="modal" data-target="#view_detail_{{detail.id}}" class="text-info"> view more</a></td>
+<!--                                <td>{{task.details}}</td>-->
+                                <td>{{detail.added_on}}</td>
+                                <td>{{detail.updated_on}}</td>
+<!--                                <td><a href="/admin-dashboard/edit-user/{{person.id}}"  class="btn btn-sm btn-info">Edit</a></td>-->
+<!--                                <td><a href="/admin-dashboard/delete-user/{{person.id}}"  class="btn btn-sm btn-info">Delete</a></td>-->
+                                <td><a href="/admin-dashboard/view-single-user-task/{{detail.id}}" class="btn btn-sm btn-primary">VIEW</a></td>
+                            </tr>
+                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="view_detail_{{detail.id}}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Task Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">{{detail.details}} </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         {% endfor %}
+                        </tbody>
+                        </thead>
+                    </table>
+                </div>
+             </div>
+       </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+<link href="{% static 'css/full_calendar.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+
+                </div>
+                 {% if added %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                            <polyline points="9 11 12 14 22 4"></polyline>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                        </svg>
+                        <strong>Success!</strong> Holiday added successfully.
+                        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                        </button>
+                    </div>
+                 {% endif %}
+
+                 <div class="p-1">
+                      <h2 class="mb-4">Holidays</h2>
+                      <div class="card">
+                        <div class="card-body p-0">
+                          <div id="calendar"></div>
+                        </div>
+                      </div>
+                 </div>
+
+                    <!-- calendar modal -->
+                    <div id="modal-view-event" class="modal modal-top fade calendar-modal">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <h4 class="modal-title"><span class="event-icon"></span><span class="event-title"></span></h4>
+                                        <div class="event-body"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div id="modal-view-event-add" class="modal modal-top fade calendar-modal">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div id="add-event">
+                              <form  method="POST" >
+                                      {% csrf_token %}
+                                <div class="modal-body">
+                                    <h4>Add Event Detail</h4>
+
+                                        <div class="form-group">
+                                            <label>Event name</label>
+                                            <input type="text" class="form-control" name="title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Event Description</label>
+                                            <textarea class="form-control" name="description"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Event Start Date</label>
+                                            <input type='date' class="datetimepicker form-control" name="start_date">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Event End Date</label>
+                                           <input type='date' class="datetimepicker form-control" name="end_date">
+                                        </div>
+
+                                </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" >Save</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                     </div>
+                              </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+             <div class="login_foot border-top pt-4">
+                <p class="text-center mb-0">©SurajKuikel Copyright. All right reserved.</p>
+              </div>
+            </div>
+        </div>
+</div>
+
+
+{% endblock %}
+{% block js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/i18n/datepicker.en.js"></script>
+
+
+<script>
+    $(document).ready(function(){
+  $('.datetimepicker').datepicker({
+      timepicker: true,
+      language: 'en',
+      range: true,
+      multipleDates: true,
+		  multipleDatesSeparator: " - "
+    });
+  $("#add-event").submit(function(){
+      alert("Submitted");
+      var values = {};
+      $.each($('#add-event').serializeArray(), function(i, field) {
+          values[field.name] = field.value;
+      });
+      console.log(
+        values
+      );
+  });
+});
+
+(function () {
+    'use strict';
+    // ------------------------------------------------------- //
+    // Calendar
+    // ------------------------------------------------------ //
+	jQuery(function() {
+		// page is ready
+		jQuery('#calendar').fullCalendar({
+			themeSystem: 'bootstrap4',
+			// emphasizes business hours
+			businessHours: false,
+			defaultView: 'month',
+			// event dragging & resizing
+			editable: false,
+			// header
+			header: {
+				left: 'title',
+				center: 'month,agendaWeek,agendaDay',
+				right: 'today prev,next'
+			},
+			events: [
+			{% for i in vacation %}
+				{
+					title: '{{i.title|safe}}',
+					description:'{{i.description|safe}}',
+					start: '{{i.start_date|safe}}',
+					end:'{{i.end_date|safe}}' ,
+                    color:"#FF8800"
+				},
+				{% endfor %}
+
+			],
+			eventRender: function(event, element) {
+				if(event.icon){
+					element.find(".fc-title").prepend("<i class='fa fa-"+event.icon+"'></i>");
+				}
+			  },
+			dayClick: function() {
+				jQuery('#modal-view-event-add').modal();
+			},
+			eventClick: function(event, jsEvent, view) {
+			        jQuery('.event-icon').html("<i class='fa fa-"+event.icon+"'></i>");
+					jQuery('.event-title').html(event.title);
+					jQuery('.event-body').html(event.description);
+					jQuery('.eventUrl').attr('href',event.url);
+					jQuery('#modal-view-event').modal();
+			},
+		})
+	});
+
+})(jQuery);
+
+
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+
+
+
+
+<!-- 
+</body>
+</html> -->
+{% endblock %}

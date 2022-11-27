@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/tasks/">Tasks</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Task</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">ADD NEW TASK</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Select Task Type</label>
+                            <select class="form-control form-control-lg" name="selected_task_type" required>
+                                {% for tasks in all_tasks_type %}
+                                <option value="{{tasks.id}}">{{tasks.type_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Task Details</label>
+                            <textarea class="form-control" rows="4" id="comment" name="task_details"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-rounded btn-info  btn-md">SUBMIT TASK</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+{% if details_empty %}
+swal({
+    title: "Failed!",
+    text: "task details required!",
+    icon: "error",
+}); {% endif %}
+
+{% if details_empty %}
+swal({
+    title: "Sucess!",
+    text: "task added successfully !",
+    icon: "success",
+}); {% endif %}
+</script>
+{% endblock %}

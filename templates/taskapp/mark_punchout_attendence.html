@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Mark Presence</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Mark Presence</h4>
+            </div>
+             {% if added %}
+                <div class="alert alert-success alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <polyline points="9 11 12 14 22 4"></polyline>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    <strong>Success!</strong> Punched Out Successfully.
+                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+                {% endif %}
+
+                <div class="card-body">
+                    <div class="basic-form">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Username</label>
+                                <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="person" value="{{request.user}}" readonly>
+                                </div>
+                            </div>
+                         <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Date</label>
+
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" name="attend_date" id="date" readonly>
+                            </div>
+                         </div>
+                            <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Punch In Time</label>
+
+                            <div class="col-sm-9">
+                                {%for i in a%}
+                                <input type="text" class="form-control" name="punch_in" id="punch_in"  value="{{i.punch_in}}"readonly>
+                                {%endfor%}
+                            </div>
+                         </div>
+<!--                             <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Entry Time</label>-->
+
+<!--                            <div class="col-sm-9">-->
+<!--                                <input type="text" class="form-control" name="punch_in" id="currentTime" >-->
+<!--                            </div>-->
+<!--                         </div>-->
+<!--&lt;!&ndash;                             <div class="form-group mb-0">&ndash;&gt;-->
+<!--                                    <div class="radio">-->
+<!--                                        <label><input type="radio" name="puch_in">Punch In</label>-->
+<!--                                        <div id="show_punch_in" class="pt-1"> <label>Entry Time</label>-->
+<!--                                            <input type="text" class="form-control" name="punch_in" value="a"></div>-->
+<!--                                    </div>-->
+<!--                             <div class="form-group mb-0">-->
+<!--                            <input type="button"  class="btn btn-sm btn-secondary" name="punch_in" value="Punch In" onclick="ShowHideDiv(this)">-->
+<!--                                 <div id="dvPunchin" style="display: none">-->
+<!--                                    <input type="text" class="form-control" id="textInput" value="{{punch_in_now}}" />-->
+<!--                                 </div>-->
+<!--                                   </div>-->
+
+<!--                                    <div class="radio">-->
+<!--                                        <label><input type="radio" name="punch_out" >Punch Out</label>-->
+<!--                                        <div id="show_punch_out" class="pt-1"> <label>Exit Time</label>-->
+<!--                                            <input type="text" class="form-control" name="punch_out" value="b"></div>-->
+<!--                                    </div>-->
+
+
+<!--                        <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label"> </label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <select class="form-control"  name="new_repo"  id="id_new_reporting_to"  required>-->
+<!--                                     <option value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--                                    {%for i in data%}-->
+<!--                                        <option value={{i.username}}>{{i.username}}</option>-->
+<!--                                        {% endfor %}-->
+<!--                                    </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                         <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Report From</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <input type="date" class="form-control" name="duration_from" placeholder="Enter Reporting From"  required>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                          <div class="form-group row">-->
+<!--                            <label class="col-sm-3 col-form-label">Report Till</label>-->
+<!--                            <div class="col-sm-9">-->
+<!--                                <input type="date" class="form-control" name="duration_till" placeholder="Enter Reporting Till" required >-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                            <div class="container">
+                                <div class="btn-block d-sm-flex justify-content-end">
+                                     <button type="submit" class="btn btn-sm btn-primary">Punch Out</button>&nbsp;
+                                     <button type="reset" class="btn btn-sm btn-warning">CANCEL</button>
+                             </div>
+                            </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+
+<!--     function ShowHideDiv(btnPunchin) {-->
+<!--        var dvPassport = document.getElementById("dvPunchin");-->
+<!--        dvPassport.style.display = btnPunchin.value == "Punch In" ? "block" : "none";-->
+<!--    }-->
+
+let dateInput = document.getElementById('date');
+dateInput.valueAsDate = new Date();
+
+<!--var today = new Date();-->
+<!--var time = today. getHours() + ":" + today. getMinutes() + ":" + today. getSeconds() + ":" + today.getMilliseconds();-->
+<!--document. getElementById("currentTime"). value = time;-->
+
+
+
+</script>
+{% endblock %}

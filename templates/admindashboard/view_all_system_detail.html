@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">System Detail</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">SYSTEM DETAILS</h4>
+                  <div class="float-right"><a href="/admin-dashboard/create-system-details" class="btn btn-primary btn-sm">Add New System Details</a>
+                  </div>
+            </div>
+
+
+             <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 1050px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>System Id</th>
+                                <th>System Type</th>
+                                <th>Specification</th>
+                                <th>System Service</th>
+                                <th>Added On</th>
+                                <th>Status</th>
+                                <th>Assigned to</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for detail in  system_detail_list %}
+
+
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{detail.system_id}}</td>
+                                <td>{{detail.system_type|title}}</td>
+                                <td>{{detail.specification|title}}</td>
+                                <td>{{detail.system_service|title}}</td>
+                                <td>{{detail.added_on}}</td>
+                                <td>{{detail.status}}</td>
+
+                                <td>{{detail.user}}</td>
+                                <td><a href="#view_single_system_detail{{detail.system_id}}" data-toggle="modal" data-target="#view_single_system_detail{{detail.system_id}}" class="btn btn-sm btn-primary">VIEW</a>
+                               <a href="/admin-dashboard/edit-system-details/{{detail.system_id}}"  class="btn btn-sm btn-success">EDIT</a>
+                                <a href="#delete_{{detail.system_id}}" data-toggle="modal" data-target="#delete_{{detail.system_id}}" class="btn btn-sm btn-danger">DELETE</a></td>
+                            </tr>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="delete_{{detail.system_id}}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                         <h4>Are you sure you want to delete?</h4>
+                                        <div class="modal-footer">
+                                             <a href="/admin-dashboard/delete-system-details/{{detail.system_id}}" class="btn btn-sm btn-warning">Confirm Delete</a>
+                                            <button type="button" class="btn btn-sm btn-danger light" data-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="view_single_system_detail{{detail.system_id}}">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">System Detail</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h4 class="card-title">System Detail</h4>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <div class="basic-form">
+                                                                            <form method="post" enctype="multipart/form-data">
+                                                                                {% csrf_token %}
+
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-3 col-form-label">System Id</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text" class="form-control" name="system_id" value="{{detail.system_id}}" readonly>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-3 col-form-label">System Type</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text" class="form-control" name="system_type" value="{{detail.system_type|title}}" readonly>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                 <div class="form-group row">
+                                                                                    <label class="col-sm-3 col-form-label">Specification</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text" class="form-control" name="specification" value="{{detail.specification|title}}" readonly>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-3 col-form-label">System Service</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text" class="form-control"  name="system_service"  value="{{detail.system_service|title}}" readonly>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-3 col-form-label">Added On</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text" class="form-control" name="added_on"  value="{{detail.added_on}}"  readonly>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                            </div>
+                                                    <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm btn-danger light" data-dismiss="modal">Close</button>
+
+                                                </div>
+                                             </div>
+                                        </div>
+                                    </div>
+
+
+                         {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                  <div class="login_foot border-top pt-4">
+                <p class="text-center mb-0">©SurajKuikel Copyright. All right reserved.</p>
+              </div>
+             </div>
+       </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}
+

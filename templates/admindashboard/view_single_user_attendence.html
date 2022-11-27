@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+             <li class="breadcrumb-item"><a href="/admin-dashboard/view-all-user-attendance/">All Employees Attendance</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Attendance Detail</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-header">
+                 {%for detail in userdetail%}
+                <h4 class="card-title">USER:{{detail.username|title}}</h4>
+                  <div class="float-right"><a href="/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
+                  </div>
+                {%endfor%}
+            </div>
+
+
+             <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Date</th>
+<!--                                <th>Entry Time</th>-->
+<!--                                <th>Exit Time</th>-->
+                                <th>Worked Hours</th>
+                                <th>Marked As</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                         <tbody>
+                        {% for i in get_detail %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{i.attend_date}}</td>
+<!--                                <td>{{i.punch_in}}</td>-->
+<!--                                <td>{{i.punch_out}}</td>-->
+                                <td>{{i.working_hours}}</td>
+                                   {% if i.attendence.presence == True %}
+                                <td> <span class="badge light badge-info">
+                                   <i class="text-info mr-1"></i>
+                                    Present
+                                </span></td>
+                                  {% elif i.attendence.presence == False %}
+                                <td> <span class="badge light badge-warning">
+                                    <i class="text-info mr-1"></i>
+                                  Absent
+
+                                </span></td>
+                                  {% endif %}
+                                <td>
+                                     <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" a href="#view_user_detail_{{i.id}}" data-toggle="modal" data-target="#view_user_detail_{{i.id}}" class="btn btn-sm btn-primary">VIEW DETAIL</a></button>
+                                     </div>
+                                </td>
+                            </tr>
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="view_user_detail_{{i.id}}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">User Attendance Detail</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                  <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4 class="card-title">Attendance: {{i.attend_date}}</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="basic-form">
+                                                                <form method="post" enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Username</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control"  name="user"  value="{{i.user.username|title}}" readonly>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Date</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" name="attend_date"  value="{{i.attend_date}}"  readonly>
+                                                                        </div>
+                                                                    </div>
+
+<!--                                                                    <div class="form-group row">-->
+<!--                                                                        <label class="col-sm-3 col-form-label">Phone Number</label>-->
+<!--                                                                        <div class="col-sm-9">-->
+<!--                                                                            <input type="text" class="form-control" name="phone_number"  value="{{person.phone_number}}"  readonly>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+
+                                                                     <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Punch In Time</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control"  name="punch_in"  value="{{i.punch_in}}"  readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                     <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Punch Out Time</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control"  name="punch_out" value="{{i.punch_out}}" readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 col-form-label">Worked Hours</label>
+                                                                        <div class="col-sm-9">
+                                                                              <input type="text" class="form-control"  name="working_hours" value="{{i.working_hours}}" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-danger light" data-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+
+                         {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+             </div>
+       </div>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}
+

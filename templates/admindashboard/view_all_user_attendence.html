@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Attendence</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">USERS</h4>
+                  <div class="float-right"><a href="/dashboard/" class="btn btn-primary btn-sm">Dashboard</a>
+                  </div>
+            </div>
+
+
+             <div class="card-body">
+
+
+                <div class="table-responsive">
+                    <table id="example" class="display table-responsive-md" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>Sr. no</th>
+                                <th>Student Id</th>
+                                <th> Name</th>
+                                <th>Username</th>
+<!--                                <th>Date</th>-->
+                                <th>Action</th>
+<!--                                <th>Marked As</th>-->
+
+                            </tr>
+                        </thead>
+                         <tbody>
+                        {% for detail in  view_user %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{detail.office_user_id}}</td>
+                                  <td>{{detail.first_name|title}} {{detail.last_name|title}}</td>
+                                <td>{{detail.username}}</td>
+                                <td>
+                               <div class="btn-group" role="group" aria-label="Basic example">
+<!--                                  <button type="button" a href="#view_single_user_{{person.id}}" data-toggle="modal" data-target="#view_single_user_{{person.id}}" class="btn btn-sm btn-info">VIEW ATTENDANCE</a></button>-->
+                                      <a href="/admin-dashboard/view-single-user-attendance/{{detail.id}}"  class="btn btn-sm btn-info">VIEW ATTENDANCE</a>
+<!--                                <button type="button" a href="#delete_{{person.id}}" data-toggle="modal" data-target="#delete_{{person.id}}" class="btn btn-sm btn-danger">DELETE</a></button>-->
+                               </div>
+                                </td>
+                            </tr>
+                         {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+             </div>
+             <div class="login_foot border-top pt-4">
+                <p class="text-center mb-0">©SurajKuikel Copyright. All right reserved.</p>
+              </div>
+       </div>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+{% endblock %}
+

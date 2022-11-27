@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load CustomTaskappTags %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/tasks/">Tasks</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">View Single Task</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Task Type : {{all_task_details.task_type.type_name}}</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text"><h4><b>Description:</b></h4> {{all_task_details.details}}</p>
+                      {% for file_uploaded_data in uploaded_files_data %}
+                      {% ifequal file_uploaded_data.task__id task.id %}
+                <p class="card-text"><h4><b>Uploaded File:</b></h4>{{file_uploaded_data.extension|check_file_type:file_uploaded_data.uploaded_file}}</p>
+                      {% endifequal %}
+                      {% endfor %}
+            </div>
+            <div class="card-footer d-sm-flex justify-content-between align-items-center">
+                <div class="card-footer-link mb-4 mb-sm-0">
+                    <p class="card-text text-dark d-inline"><h4><b>added on:</b></h4> {{all_task_details.added_on}}</p>
+                </div>
+                <a href="/tasks/" class="btn btn-primary">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

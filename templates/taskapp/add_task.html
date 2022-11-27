@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/tasks/">Tasks</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Add Task</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">ADD NEW TASK</h4>
+            </div>
+            <div class="card-body">
+                {% if added %}
+                <div class="alert alert-success alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <polyline points="9 11 12 14 22 4"></polyline>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    <strong>Success!</strong> task added successfully.
+                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+                {% endif %}
+                {% if details_empty %}
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                    <strong>Error!</strong> details can't be empty .
+                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+                {% endif %}
+                {% if project_not_selected %}
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                    <strong>Error!</strong> Task Type "Project" can't be created without Project .
+                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+                {% endif %}
+                <div class="basic-form">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Select Task Type</label>
+                            <select class="form-control form-control-lg" name="selected_task_type" required id="single-select">
+                                {% for tasks in all_tasks_type %}
+                                <option value="{{tasks.id}}">{{tasks.type_name|title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group" id="project_div">
+                            <input type="hidden" name="project_selected" value="1">
+
+                            {% if no_projects %}
+                            <div class="alert alert-dark solid  fade show">
+
+                                     <strong>Error!</strong> <a href="/projects/add-project" class="badge badge-sm light badge-dark ml-1">add new project</a> to continue
+                                 </div>
+                            {% else %}
+                              <label>Select Project</label>
+                            <select class="form-control form-control-lg" name="selected_project_type">
+                                {% for project in all_projects %}
+                                <option value="{{project.id}}">{{project.title}}</option>
+                                {% endfor %}
+                            </select>
+                            {% endif %}
+                        </div>
+
+                        <div class="input-group mb-3">
+
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" multiple name="file">
+                                               <label class="custom-file-label">Choose files/Screenshots</label>
+
+                                           </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Task Details</label>
+                            <textarea class="form-control" rows="4" id="comment" name="task_details"></textarea>
+                </div>
+                <button type="submit" class="btn btn-rounded btn-info  btn-md">SUBMIT TASK</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var selectedText = $('#single-select option:selected').text();
+    if (selectedText == "Project") {
+
+        $('#project_div').show();
+    } else {
+
+        $('#project_div').hide();
+    }
+});
+
+
+$('#single-select').on('change', function() {
+    var selectedText = $(this).find("option:selected").text();
+    if (selectedText == "Project") {
+
+        $('#project_div').show();
+    } else {
+
+        $('#project_div').hide();
+    }
+
+});
+</script>
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+{% endblock %}

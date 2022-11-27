@@ -1,0 +1,339 @@
+{% load static %}
+{% load CustomTaskappTags %}
+<div class="deznav">
+    <div class="deznav-scroll">
+        <ul class="metismenu" id="menu">
+            <li><a href="/dashboard" aria-expanded="false">
+                    <img src="https://img.icons8.com/fluency/24/000000/dashboard-layout.png"/>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <!-- Employee level dashboard Start-->
+            {% if request.user.is_employee %}
+             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <img src="https://img.icons8.com/external-icongeek26-linear-colour-icongeek26/28/000000/external-immigration-airport-icongeek26-linear-colour-icongeek26-1.png"/><span class="nav-text">Attendance</span>
+                    </a>
+                    <ul aria-expanded="false">
+
+<!--                        <li><a href="/tasks/mark-attendence">Punch In</a></li>-->
+
+<!--                        <li><a href="/tasks/mark-attendence-out">Punch Out</a></li>-->
+
+                        <li><a href="/tasks/single-user-attendence-detail">Detail</a></li>
+
+<!--                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Task Type</a>-->
+<!--                        <ul aria-expanded="false">-->
+<!--                            {{request.user|user_all_task_type}}-->
+<!--                        </ul>-->
+                        </li>
+                    </ul>
+             </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <img src="https://img.icons8.com/color/28/000000/leave.png"/><span class="nav-text">Leave</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="/tasks/apply-leave/">Apply Leave</a></li>
+                        <li><a href="/tasks/user-leave-view/">Leave Details</a></li>
+<!--                        <li><a href="/tasks/single-user-attendence-detail">Detail</a></li>-->
+                        </li>
+                    </ul>
+             </li>
+<!--               <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">-->
+<!--            <img src="https://img.icons8.com/external-filled-outline-geotatah/35/000000/external-absence-socio-technical-system-filled-outline-filled-outline-geotatah.png"/><span class="nav-text">Leave Section</span>-->
+<!--                </a>-->
+<!--                <ul aria-expanded="false">-->
+<!--                    <li><a href="/tasks/apply-leave">Apply Leave</a></li>-->
+<!--                    <li><a href="/tasks/leave-detail">All Leave</a></li>-->
+<!--&lt;!&ndash;                    <li><a href="/tasks/#">Approved Leave</a></li>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Task Type</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <ul aria-expanded="false">&ndash;&gt;-->
+<!--&lt;!&ndash;                            {{request.user|user_all_task_type}}&ndash;&gt;-->
+<!--&lt;!&ndash;                        </ul>&ndash;&gt;-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABmJLR0QA/wD/AP+gvaeTAAACkklEQVRIie2Vy0tUURjAf+fOw3lkvvKRGlKhhFHRQ4QkQSGKooWQEEG4C1qG0Lq/wAwXUYsiSoskolZJJhVRYbQIwh6oUU6mpTk2Oq87935tbHRGnXEeq+i3Oud83/l+3HPPdy/866ilk0cjkqeUflygEaV6Dm629WVbaP076B8N7RQifYIqAxCRQSDrQm2huBK0G0BZtgXxKID+L8EtYlhGlgbGfHJ96LvZuylfm0incESZvvZ6x6f4dSvA5CzbStbFBoamjLZfhrRVaip+z5qwoD0BmuLXNYCvPrUjraoJCOhS3tQ9f7qpe37vMqFFycZsC/261Ci4rODYMiGY1pU2rZU3w17uvxpn4O2PZbGqPK2183XoTsdgaPsSYWr4QxFCYSM6L15vxzMV4POkf1muw0otQqtSZjEs6cNUZLefedCU4kRjJV6/zr2X4+zemk9IN5LuT0n4V5brtBIxhFtPx5j1R6irLqChtghTJDWhITAyY+LxCWOzgjtnZVnL/gpEhLvPv1FTkUtDbREAmkreQlHhdEDofa8zE1oMunMWCwTDJmX5Dg7tKcWiKUDReqByYbx2rACCJg+GIzGyeApz7Rypi/3ypSqLCqcDxtTEXOLEDx4fHz2+hDm5TivNu0qSC2eC6h0ILhuUuVX0XRQ4Fp/AabOQ57YlLObOSX4HrQDusPPxBmdQry/XbJZVOrOq1EVVqStpwWRoAJ0tyruvwtK+miybRBXn6u1d3qB56mdAJGIm76d0iTn0843Om809/gKQiwjp/ZdSEQIMnHR1nXkYmDMMrv4OC2aGAlfcPVvxWl067Lx2YTDsUEgH4MjQGUPCY+t4IYUWm37UFKlWCnsmIkGunK1zjGZS4z8r8gdCjuucrjANngAAAABJRU5ErkJggg=="/>
+
+           <span class="nav-text">Projects</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/projects/">All Projects</a></li>
+                      <li><a href="/projects/add-project">Add New Project</a></li>
+                    <li><a href="/projects/project-type/active">Active Projects</a></li>
+                    <li><a href="/projects/project-type/completed">Completed Projects</a></li>
+                    <!--  <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Task Type</a>
+                        <ul aria-expanded="false">
+                            {{request.user|user_all_task_type}}
+                        </ul>
+                    </li> -->
+                </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+    <img src="https://img.icons8.com/fluency/24/000000/task.png"/><span class="nav-text">Daily Tasks</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/tasks/">All Tasks</a></li>
+                    <li><a href="/tasks/add-task">Add New</a></li>
+<!--                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Task Type</a>-->
+<!--                        <ul aria-expanded="false">-->
+<!--                            {{request.user|user_all_task_type}}-->
+<!--                        </ul>-->
+                    </li>
+                </ul>
+            </li>
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+<img src="https://img.icons8.com/external-soft-fill-juicy-fish/28/000000/external-data-project-management-soft-fill-soft-fill-juicy-fish-2.png"/>
+                <!--                <i class="fas fa-people-arrows"></i>-->
+                <span class="nav-text">Manage Reporting</span>
+
+                </a>
+                <ul aria-expanded="false">
+                                    <ul aria-expanded="false">
+                                          <li><a href="/tasks/manage-reporting/">Manage Reporting</a></li>
+                                         </ul>
+
+                             </ul>
+                         <ul aria-expanded="false">
+                                 <ul aria-expanded="false">
+                                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Reporting To</a>
+                                         <ul aria-expanded="false">
+                                          <li><a href="/tasks/view-user-reporting-to/">{{request.user.reporting_to}}</a></li>
+                                         </ul>
+                                    </li>
+                                 </ul>
+                             </ul>
+                            <ul aria-expanded="false">
+                                 <ul aria-expanded="false">
+                                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Reporting By</a>
+                                         <ul aria-expanded="false">
+                                          <li><a href="/tasks/view-user-reporting-by/">Users</a></li>
+                                         </ul>
+                                    </li>
+                                 </ul>
+                            </ul>
+             </li>
+
+           <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+           <img src="https://img.icons8.com/external-sbts2018-flat-sbts2018/28/000000/external-team-work-lean-thinking-sbts2018-flat-sbts2018.png"/>
+<!--                <i class="fas fa-users">-->
+
+                </i><span class="nav-text">{{request.user.programming_language.language_name|title}} Team</span>
+                </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/tasks/view-user-team-member/">Team Members</a></li>
+                        </ul>
+             </li>
+
+
+
+
+
+<!--             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">-->
+<!--             <img src="https://img.icons8.com/ios-glyphs/30/000000/appointment-reminders&#45;&#45;v2.png"/>-->
+<!--                 <span class="nav-text">Notifications</span>-->
+<!--                </a>-->
+<!--                <ul aria-expanded="false">-->
+<!--&lt;!&ndash;                    <li><a href="/tasks/">Mail</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li><a href="/tasks/add-task">Add New</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Task Type</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <ul aria-expanded="false">&ndash;&gt;-->
+<!--&lt;!&ndash;                            {{request.user|user_all_task_type}}&ndash;&gt;-->
+<!--&lt;!&ndash;                        </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--                </ul>-->
+            </li>
+
+            {% endif %}
+            <!-- Employee level dashboard Ends -->
+
+
+            <!-- Superuser level dashboard Start-->
+            {% if request.user.is_superuser %}
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                   <img src="https://img.icons8.com/offices/30/000000/user.png"/>
+                    <span class="nav-text">Student</span>
+                </a>
+                <ul aria-expanded="false">
+<!--                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">All users</a>-->
+<!--                        <ul aria-expanded="false">-->
+<!--                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Layout</a>-->
+<!--                                <ul aria-expanded="false">-->
+<!--                                    <li><a href="/admin-dashboard/all-users/tabular/">Table</a></li>-->
+<!--                                    <li><a href="/admin-dashboard/all-users/grid/">Grid</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+
+<!--                                <ul aria-expanded="false">-->
+<!--                                      <li><a href="/admin-dashboard/view-all-users-admin/">Admin</a></li>-->
+<!--&lt;!&ndash;                                     <li><a href="/admin-dashboard/user-create/">Employees</a></li>&ndash;&gt;-->
+<!--                                </ul>-->
+
+                    <ul aria-expanded="false">
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Stuents</a>
+                                <ul aria-expanded="false">
+                                      <li><a href="/admin-dashboard/view-all-users/">All Student</a></li>
+                                     <li><a href="/admin-dashboard/user-create/">Add Student </a></li>
+                                     <li><a href="/admin-dashboard/view-all-inactive-users/">Ex Student </a></li>
+                                </ul>
+                            </li>
+                    </ul>
+                </ul>
+            </li>
+           <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                  <img src="https://img.icons8.com/external-flaticons-flat-flat-icons/30/000000/external-department-university-flaticons-flat-flat-icons-3.png"/>
+                    <span class="nav-text">Department</span>
+               </a>
+                      <ul aria-expanded="false">
+                          <li><a href="/admin-dashboard/view-all-programming-language/">All Department</a></li>
+                          <li><a href="/admin-dashboard/create-language/">Add Department</a></li>
+                      </ul>
+           </li>
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                  <img src="https://img.icons8.com/external-becris-lineal-color-becris/25/000000/external-task-business-management-becris-lineal-color-becris.png"/>
+                    <span class="nav-text">Task Type </span>
+               </a>
+                      <ul aria-expanded="false">
+                          <li><a href="/admin-dashboard/view-all-tasktype/">All Task Type</a></li>
+                          <li><a href="/admin-dashboard/create-tasktype/">Add Task Type</a></li>
+                      </ul>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                   <img src="https://img.icons8.com/color/30/000000/attendance-mark.png"/>
+                    <span class="nav-text">Attendance</span>
+               </a>
+                      <ul aria-expanded="false">
+                          <li><a href="/admin-dashboard/view-all-user-attendance/">All Students Attendance</a></li>
+                          <li><a href="/admin-dashboard/view-today-all-attendence/">Today Attendence</a></li>
+<!--                          <li><a href="/admin-dashboard/create-language/">Add Department</a></li>-->
+                      </ul>
+           </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <img src="https://img.icons8.com/color/28/000000/leave.png"/><span class="nav-text">Leave</span>
+                    </a>
+                    <ul aria-expanded="false">
+                         <li><a href="/admin-dashboard/view-all-leave/">Leave Details</a></li>
+                        <li><a href="/admin-dashboard/view-pending-leave/">Pending Leaves</a></li>
+                        <li><a href="/admin-dashboard/view-approved-leave/">Approved Leaves</a></li>
+                        <li><a href="/admin-dashboard/view-rejected-leave/">Rejected Leaves</a></li>
+<!--                        <li><a href="/tasks/single-user-attendence-detail">Detail</a></li>-->
+                        </li>
+                    </ul>
+             </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+<img src="https://img.icons8.com/fluency/30/000000/sunbathe.png"/>
+                    <span class="nav-text">Holidays</span>
+               </a>
+                      <ul aria-expanded="false">
+                          <li><a href="/admin-dashboard/add-events/">Add Holidays</a></li>
+                          <li><a href="/admin-dashboard/view-events/">View Holidays</a></li>
+<!--                          <li><a href="/admin-dashboard/create-language/">Add Department</a></li>-->
+                      </ul>
+           </li>
+
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+             <img src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/32/000000/external-interview-news-kiranshastry-lineal-color-kiranshastry.png"/>
+                    <span class="nav-text">Admission </span>
+               </a>
+                      <ul aria-expanded="false">
+                          <li><a href="/admin-dashboard/dummy_api/">View Apply List </a></li>
+                        
+
+<!--                          <li><a href="/admin-dashboard/create-language/">Add Department</a></li>-->
+                      </ul>
+           </li>
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+              <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/32/000000/external-events-night-club-flaticons-lineal-color-flat-icons-2.png"/>
+                    <span class="nav-text">Events</span>
+               </a>
+                      <ul aria-expanded="false">
+                          <li><a href="/admin-dashboard/add_event/">Add Event</a></li>
+                          <li><a href="/admin-dashboard/view-events/">View Events</a></li>
+
+<!--                          <li><a href="/admin-dashboard/create-language/">Add Department</a></li>-->
+                      </ul>
+           </li>
+
+
+
+<!--             <li>   <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">-->
+<!--                        <i class="fa fa-address-card"></i>-->
+<!--                        <span class="nav-text">User Project</span>-->
+<!--                    </a>-->
+<!--                      <ul aria-expanded="false">-->
+<!--                          <li><a href="/admin-dashboard/view-all-user-project/">All User Project</a></li>-->
+<!--                      </ul>-->
+<!--            </li>-->
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+         <img src="https://img.icons8.com/external-filled-outline-wichaiwi/25/000000/external-it-digital-economy-filled-outline-wichaiwi-2.png"/>
+                    <span class="nav-text">IT Admin</span>
+                  </a>
+                     <ul aria-expanded="false">
+                         <ul aria-expanded="false">
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Systems</a>
+                                 <ul aria-expanded="false">
+                                  <li><a href="/admin-dashboard/view-all-system-details/">All System Details </a></li>
+                                  <li><a href="/admin-dashboard/create-system-details/">Add Details</a></li>
+                                 </ul>
+                            </li>
+                         </ul>
+
+                     </ul>
+                  <ul aria-expanded="false">
+                         <ul aria-expanded="false">
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Assigned System</a>
+                                 <ul aria-expanded="false">
+                                  <li><a href="/admin-dashboard/view-all-assigned-system-details/">All Assigned System</a></li>
+                                  <li><a href="/admin-dashboard/create-assigned-system-details/">Assign System</a></li>
+                                 </ul>
+                            </li>
+                         </ul>
+                  </ul>
+              </li>
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                 <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/30/000000/external-contacts-strategy-flatart-icons-flat-flatarticons-1.png"/>
+                    <span class="nav-text">Contacts</span>
+               </a>
+                      <ul aria-expanded="false">
+
+<!--                      <li><a href="/admin-dashboard/view-user-contact/">Email</a></li>-->
+
+                          <li><a href="/admin-dashboard/view-user-contact/">Contact</a></li>
+                      </ul>
+            </li>
+
+
+<!--                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Task Type</a>-->
+<!--                        <ul aria-expanded="false">-->
+<!--                            {{request.user}}-->
+<!--                        </ul>-->
+<!--                    </li>-->
+
+
+
+
+<!--                </ul>-->
+
+            {% endif %}
+            <!-- Superuser level dashboard Ends -->
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <img src="https://img.icons8.com/flat-round/24/000000/settings--v1.png"/>
+                    <span class="nav-text">Settings</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/dashboard/profile">Profile</a></li>
+                    <li><a href="/logout">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
