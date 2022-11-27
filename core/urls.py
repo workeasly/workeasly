@@ -35,12 +35,6 @@ urlpatterns = [
     path('reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
          views.reset, name='reset'),
     path('password-forgot/', views.password_reset),
-
-    # path('logout',views.logout_view),
-    # path('tasks',views.all_tasks),
-    # path('add-task',views.add_task),
-    # path('view-task/<str:id>',views.view_task),
-    # path('edit-task/<str:id>',views.edit_task),
     path('dashboard/', include('dashboardapp.urls')),
     path('tasks/', include('taskapp.urls')),
     path('projects/', include('projectapp.urls')),
